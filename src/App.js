@@ -6,7 +6,8 @@ function App() {
     <div className="App">
       <Layout>
 
-        <h4>part of children</h4>
+      
+        
       </Layout>
     </div>
   );

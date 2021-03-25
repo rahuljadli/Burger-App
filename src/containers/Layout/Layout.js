@@ -1,3 +1,5 @@
+import BurgerBuilder from "../BurgerBuilder/BurgerBuilder"
+
 const Layout=(props)=>{
     return(
 
@@ -6,9 +8,12 @@ const Layout=(props)=>{
         <main>
 {props.children}
         </main>
-        </>
+ 
 
-    )
+<BurgerBuilder/> 
+       </>
+
+    );
 }
 
 export default Layout;
