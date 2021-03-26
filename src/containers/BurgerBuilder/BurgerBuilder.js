@@ -1,7 +1,8 @@
 import { Component } from "react";
 import Burger from "../../components/Burger/Burger.js"
+import CheckOutSummary from "../../components/Burger/CheckOutSummary/CheckOutSummary.js";
 import ToppingHandler from "../../components/Burger/ToppingController/ToppingHandler.js";
-
+import Modal from '../../components/UI/Modal.js'
 const INGREDIENT_PRICE={
     'cheese':10,
     'salad':10,
@@ -17,8 +18,11 @@ class BurgerBuilder extends Component{
             bacon:0,
             meat:0
         },
-        totalCost:0
+        totalCost:0,
+        purchasable:false,
+        checkOutOrNot:false
     }
+
     addToppings=(type)=>{
         const oldCount=this.state.ingredients[type];
         const newCount=oldCount+1;
@@ -33,9 +37,28 @@ class BurgerBuilder extends Component{
             totalCost:newPrice
         })
 
+        this.checkCart(updatedIngredient);
+
 
     }
+    checkCart=(updatedIngredient)=>{
+        const ingredients={...updatedIngredient}
+        let checkoutCount=Object.keys(ingredients).map(
+            (ingredientkey)=>{
+                return ingredients[ingredientkey];
 
+            }
+
+        ).reduce((prev,current)=>{
+                return prev+current;
+        },0);
+
+        this.setState({purchasable:checkoutCount>0})
+
+
+
+    
+    }
     removeToppings=(type)=>{
         let oldCount=this.state.ingredients[type];
         let newCount=0
@@ -68,15 +91,44 @@ class BurgerBuilder extends Component{
         })
 
 
+        this.checkCart(updatedIngredient);
+    }
+     checkOutOrNot=()=>{
+        this.setState({
+            checkOutOrNot:true
+        });
+
+    }
+
+    BackdropClickHandler=()=>{
+        this.setState({
+            checkOutOrNot:false
+        })
     }
     render( ){
         return(
             <>
-            <Burger ingredients={this.state.ingredients}/>
+                <Modal show={this.state.checkOutOrNot}
+                BackdropClick={this.BackdropClickHandler}
+                >
+
+
+            <CheckOutSummary ingredients={this.state.ingredients}/>
+            </Modal>
+       
+            
+            
+            <Burger ingredients={this.state.ingredients}
+                totalPrice={this.state.totalCost}
+            />
+            
             <ToppingHandler 
             addClick={this.addToppings} minusClick={this.removeToppings} 
             ingredients={this.state.ingredients}
+            purchasable={this.state.purchasable}
+            checkOutClick={this.checkOutOrNot}
             />
+            
             </>
             
             );

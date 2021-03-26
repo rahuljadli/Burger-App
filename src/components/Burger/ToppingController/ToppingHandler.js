@@ -3,6 +3,7 @@ import classes from './ToppingHandler.module.css';
 const ToppingHandler=(props)=>{
 return(
     <div className={classes.ToppingHandler}>
+    
     <Toppings label="cheese" add={props.addClick} minus={props.minusClick}
         disabledOrNot={props.ingredients}
     />
@@ -15,6 +16,10 @@ return(
     <Toppings label="meat" add={props.addClick}  minus={props.minusClick}
          disabledOrNot={props.ingredients}
     />
+    <button className={classes.OrderButton}
+    disabled={!props.purchasable}
+    onClick={props.checkOutClick}
+    >Order Now</button>
     </div>
 )
 }
