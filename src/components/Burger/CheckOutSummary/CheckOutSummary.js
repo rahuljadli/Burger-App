@@ -1,4 +1,4 @@
-
+import Button from '../../UI/Button/Button'
 const CheckOutSummary=(props)=>{
 const ingredients=props.ingredients;
 
@@ -23,9 +23,10 @@ const summaryDetails=Object.keys(ingredients).map(
 
     {summaryDetails}
 <br></br>
-
-<button>Do you want to checkout</button>
-
+<strong>Total {props.totalCost}:</strong>
+<p>Do you want to checkout</p>
+<Button clicked={props.buy} buttonType="Success">Confirm</Button>
+<Button clicked={props.cancel} buttonType="Danger">Cancel</Button>
 
 </>
 

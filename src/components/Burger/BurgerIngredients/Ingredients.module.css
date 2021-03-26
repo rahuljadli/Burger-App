@@ -95,7 +95,7 @@ html,body{
 
 .Cheese {
     width: 90%;
-    height: 4.5%;
+    height: 5%;
     margin: 2% auto;
     background: linear-gradient(#f4d004, #d6bb22);
     border-radius: 20px;
@@ -111,7 +111,7 @@ html,body{
 
 .Bacon {
     width: 80%;
-    height: 3%;
+    height: 4.5%;
     background: linear-gradient(#bf3813, #c45e38);
     margin: 2% auto;
 }

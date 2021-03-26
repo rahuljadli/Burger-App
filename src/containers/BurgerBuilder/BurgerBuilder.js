@@ -113,7 +113,12 @@ class BurgerBuilder extends Component{
                 >
 
 
-            <CheckOutSummary ingredients={this.state.ingredients}/>
+            <CheckOutSummary ingredients={this.state.ingredients}
+
+buy={this.BackdropClickHandler}
+cancel={this.BackdropClickHandler}
+totalCost={this.state.totalCost}
+            />
             </Modal>
        
             

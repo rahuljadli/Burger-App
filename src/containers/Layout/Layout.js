@@ -1,10 +1,10 @@
 import BurgerBuilder from "../BurgerBuilder/BurgerBuilder"
-
+import Toolbar from '../../components/Navigation/ToolBar/Toolbar'
 const Layout=(props)=>{
     return(
 
         <>
-        <div>TodoList SideBar Backdrop</div>
+        <Toolbar></Toolbar>
         <main>
 {props.children}
         </main>
