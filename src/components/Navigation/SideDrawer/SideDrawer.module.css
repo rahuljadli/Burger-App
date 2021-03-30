@@ -1,0 +1,34 @@
+.SideDrawer{
+    left: 0;
+    top:0;
+    position: fixed;
+    
+    z-index: 200;
+    width: 260px;
+    height: 100%;
+    max-width: 65%;
+    background-color: azure;
+    padding: 32px 16px;
+    transition: transform 0.3s ease-out ;
+
+}
+
+@media (min-width:500px){
+    .SideDrawer{
+        display: none;
+    }
+}
+
+.Open{
+transform: translateX(0);
+}
+.Close{
+    transform: translateX(-100%);
+
+}
+@media (max-width:499px){
+    Logo1{
+        width: 30px;
+        height: 29px;
+    }
+}
