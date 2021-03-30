@@ -1,13 +1,19 @@
 
 import classes from './Toolbar.module.css';
-import Logo from '../../../containers/Logo/Logo'
+import Logo from '../../../containers/Logo/Logo';
+import NavigationItems from '../../../containers/Navigation/NavigationItems/NavigationItems';
 const Toolbar=()=>{
     return(
         <header className={classes.Toolbar}>
-        <div>Menu</div>
+        <div style={{
+            fontSize:20,
+            color:"white"
+        }}>Menu</div>
         
         <Logo></Logo>
-        <nav>...</nav>
+        <nav>
+        <NavigationItems></NavigationItems>
+        </nav>
         </header>
     )
 }
