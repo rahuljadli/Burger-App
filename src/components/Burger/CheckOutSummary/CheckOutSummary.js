@@ -5,7 +5,7 @@ const ingredients=props.ingredients;
 const summaryDetails=Object.keys(ingredients).map(
     (ingredientkey)=>{
         return(
-            <li>
+            <li key={ingredientkey}>
                 <span style={{textTransform:'capitalize'}}>
                 {ingredientkey}:{ingredients[ingredientkey]}
                 </span>

@@ -38,7 +38,6 @@ switch(props.type){
         ingredient=null
 }
 
-console.log(ingredient);
 return ingredient;
 
 }
