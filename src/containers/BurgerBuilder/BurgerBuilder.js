@@ -5,6 +5,7 @@ import ToppingHandler from "../../components/Burger/ToppingController/ToppingHan
 import Modal from '../../components/UI/Modal.js';
 
 import axios from '../../AxiosInstance';
+import Spinner from '../.../../../components/UI/Spinner/Spinner.js';
 
 const INGREDIENT_PRICE={
     'cheese':10,
@@ -23,7 +24,8 @@ class BurgerBuilder extends Component{
         },
         totalCost:0,
         purchasable:false,
-        checkOutOrNot:false
+        checkOutOrNot:false,
+        spinnerStatus:false
     }
 
     addToppings=(type)=>{
@@ -43,6 +45,9 @@ class BurgerBuilder extends Component{
         this.checkCart(updatedIngredient);
 
 
+    }
+    shouldComponentUpdate(nextProp,nextState){
+        return true;
     }
     checkCart=(updatedIngredient)=>{
         const ingredients={...updatedIngredient}
@@ -110,6 +115,9 @@ class BurgerBuilder extends Component{
     }
 
     buyBurgerHandler=()=>{
+        this.setState({
+            spinnerStatus:true
+        })
         const order={
             ingredients:this.state.ingredients,
             price:this.state.totalCost,
@@ -121,27 +129,37 @@ class BurgerBuilder extends Component{
         axios.post('orders.json',order).then(
             response=>{
                 console.log(response);
+                this.setState({spinnerStatus:false})
             }
         ).catch(error=>{
+            this.setState({spinnerStatus:false})
             console.log(error);
         })
 
 
     }
     render( ){
+        let spinnerComp=
+        <CheckOutSummary 
+            ingredients={this.state.ingredients}
+            buy={this.buyBurgerHandler}
+            cancel={this.BackdropClickHandler}
+            totalCost={this.state.totalCost}
+            />
+        if(this.state.spinnerStatus)
+        {
+            spinnerComp=<Spinner/>
+        }
+
+
         return(
             <>
                 <Modal show={this.state.checkOutOrNot}
                 BackdropClick={this.BackdropClickHandler}
                 >
 
-
-            <CheckOutSummary ingredients={this.state.ingredients}
-
-buy={this.buyBurgerHandler}
-cancel={this.BackdropClickHandler}
-totalCost={this.state.totalCost}
-            />
+            {spinnerComp}
+            
             </Modal>
        
             
