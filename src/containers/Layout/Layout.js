@@ -1,4 +1,4 @@
-import BurgerBuilder from "../BurgerBuilder/BurgerBuilder"
+
 import Toolbar from '../../components/Navigation/ToolBar/Toolbar'
 import { Component } from "react";
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
@@ -25,7 +25,6 @@ class Layout extends Component{
             </main>
      
     
-    <BurgerBuilder/> 
            </>
     )
     }
