@@ -1,5 +1,4 @@
 
-import {Component} from 'react';
 import Burger from '../Burger/Burger';
 import Button from '../UI/Button/Button';
 import classes from '../Order/OrderSummary.module.css';
@@ -16,12 +15,12 @@ const OrderSummary=(props)=>{
         
         </div>
         <Button 
-        clicked
+        clicked={props.CheckOutContinue}
         buttonType="Success">
             Confirm
         </Button>
         <Button
-        clicked
+        clicked={props.CheckOutCancel}
          buttonType="Danger">
 Cancel        </Button>
 

@@ -3,8 +3,6 @@ import Burger from "../../components/Burger/Burger.js"
 import CheckOutSummary from "../../components/Burger/CheckOutSummary/CheckOutSummary.js";
 import ToppingHandler from "../../components/Burger/ToppingController/ToppingHandler.js";
 import Modal from '../../components/UI/Modal.js';
-
-import axios from '../../AxiosInstance';
 import Spinner from '../.../../../components/UI/Spinner/Spinner.js';
 
 const INGREDIENT_PRICE={
@@ -115,26 +113,22 @@ class BurgerBuilder extends Component{
     }
 
     buyBurgerHandler=()=>{
-        this.setState({
-            spinnerStatus:true
-        })
-        const order={
-            ingredients:this.state.ingredients,
-            price:this.state.totalCost,
-            customer:{
-                name:'rahul',
-                age:'23'
-            }
-        }
-        axios.post('orders.json',order).then(
-            response=>{
-                console.log(response);
-                this.setState({spinnerStatus:false})
-            }
-        ).catch(error=>{
-            this.setState({spinnerStatus:false})
-            console.log(error);
-        })
+       
+
+        // Commenting this out as we want to route it to checkout page when user clicks Confirm
+        const queryParams=[]
+        for(let i in this.state.ingredients)
+        queryParams
+        .push( encodeURIComponent(i) + '='
+            +encodeURIComponent(this.state.ingredients[i]));
+
+            queryParams.push('price='+this.state.totalCost);
+
+        const queryString =queryParams.join('&');
+        this.props.history.push({
+            pathname:'/checkout',
+            search:'?'+queryString
+        });
 
 
     }
