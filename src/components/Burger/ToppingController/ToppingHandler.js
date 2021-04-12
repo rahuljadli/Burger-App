@@ -1,6 +1,8 @@
 import Toppings from './Toppings.js'
 import classes from './ToppingHandler.module.css';
 const ToppingHandler=(props)=>{
+
+    
 return(
     <div className={classes.ToppingHandler}>
     
@@ -17,7 +19,7 @@ return(
          disabledOrNot={props.ingredients}
     />
     <button className={classes.OrderButton}
-    disabled={!props.purchasable}
+    disabled={!(props.purchasable)}
     onClick={props.checkOutClick}
     >Order Now</button>
     </div>
