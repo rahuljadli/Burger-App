@@ -4,6 +4,10 @@ import CheckOutSummary from "../../components/Burger/CheckOutSummary/CheckOutSum
 import ToppingHandler from "../../components/Burger/ToppingController/ToppingHandler.js";
 import Modal from '../../components/UI/Modal.js';
 import Spinner from '../.../../../components/UI/Spinner/Spinner.js';
+import {connect} from 'react-redux';
+
+import * as actionTypes from '../../Store/action';
+
 
 const INGREDIENT_PRICE={
     'cheese':10,
@@ -13,13 +17,7 @@ const INGREDIENT_PRICE={
 }
 class BurgerBuilder extends Component{
     state={
-        ingredients:{
-            cheese:0,
-            salad:0,
-           
-            bacon:0,
-            meat:0
-        },
+        
         totalCost:0,
         purchasable:false,
         checkOutOrNot:false,
@@ -133,9 +131,10 @@ class BurgerBuilder extends Component{
 
     }
     render( ){
+        console.log(this.props.ings)
         let spinnerComp=
         <CheckOutSummary 
-            ingredients={this.state.ingredients}
+            ingredients={this.props.ings}
             buy={this.buyBurgerHandler}
             cancel={this.BackdropClickHandler}
             totalCost={this.state.totalCost}
@@ -158,13 +157,14 @@ class BurgerBuilder extends Component{
        
             
             
-            <Burger ingredients={this.state.ingredients}
+            <Burger ingredients={this.props.ings}
                 totalPrice={this.state.totalCost}
             />
             
             <ToppingHandler 
-            addClick={this.addToppings} minusClick={this.removeToppings} 
-            ingredients={this.state.ingredients}
+            addClick={this.props.onIngredientAdded} 
+            minusClick={this.props.onIngredientRemoved} 
+            ingredients={this.props.ings}
             purchasable={this.state.purchasable}
             checkOutClick={this.checkOutOrNot}
             />
@@ -175,4 +175,27 @@ class BurgerBuilder extends Component{
     };
 
 }
-export default BurgerBuilder;
+
+const mapStatesToProps=state=>{
+    return{
+        ings:state.ingredients
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      onIngredientAdded: (ingName) =>         
+        dispatch({
+          type: actionTypes.ADD_INGREDIENT,
+          ingredientName: ingName,
+        }),
+      onIngredientRemoved: (ingName) =>
+        dispatch({
+          type: actionTypes.DELETE_INGREDIENT,
+          ingredientName: ingName,
+        }),
+    };
+  };
+
+
+export default connect(mapStatesToProps,mapDispatchToProps)(BurgerBuilder);
