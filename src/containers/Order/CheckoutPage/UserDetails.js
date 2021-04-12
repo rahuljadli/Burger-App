@@ -2,6 +2,7 @@ import { Component } from "react";
 import Button from '../../../components/UI/Button/Button';
 import classes from '../CheckoutPage/UserDetails.module.css';
 import axios from '../../../AxiosInstance';
+import {connect} from 'react-redux';
 class UserDetails extends Component{
 
 state={
@@ -23,17 +24,16 @@ state={
         console.log("Showing user details")
 
         console.log("order Placed")
-        const ingre=this.props.ingredients
+        const ingre=this.props.ings
         const updatedIngredient={
 
         }
         for(let k in ingre){
             updatedIngredient[k]=ingre[k]
         }
-        console.log(updatedIngredient)
         const order={
             ingredients:updatedIngredient,
-            price:this.props.totalCost,
+            price:this.props.price,
             customer:users
         }
         axios.post('orders.json',order).then(
@@ -106,4 +106,11 @@ state={
                     )
     }
 }
-export default UserDetails;
+
+const mapStatesToProps=state=>{
+    return{
+        ings:state.ingredients,
+        price:state.totalCost
+    }
+}
+export default connect(mapStatesToProps)(UserDetails);

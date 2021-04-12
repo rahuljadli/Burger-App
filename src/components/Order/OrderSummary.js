@@ -2,18 +2,19 @@
 import Burger from '../Burger/Burger';
 import Button from '../UI/Button/Button';
 import classes from '../Order/OrderSummary.module.css';
+import {connect} from 'react-redux'
 const OrderSummary=(props)=>{ 
     return(
         <div className={classes.OrderSummary}>
-        <h3>Enjoy your Meal</h3>
+        
         <div style={{
             width:'100%',
             margin:'auto',
-            height:'300px'
+            height:'440px'
         }}>
-        <Burger ingredients={props.ingredients}/>
-        
-        </div>
+        <Burger ingredients={props.ingredients}
+            totalPrice={props.price}
+        />
         <Button 
         clicked={props.CheckOutContinue}
         buttonType="Success">
@@ -23,10 +24,17 @@ const OrderSummary=(props)=>{
         clicked={props.CheckOutCancel}
          buttonType="Danger">
 Cancel        </Button>
+        </div>
+        
 
         </div>
 
    )
 }
-
-export default OrderSummary;
+const mapStatesToProps=state=>{
+    return{
+        ings:state.ingredients,
+        price:state.totalCost
+    }
+}
+export default connect(mapStatesToProps)(OrderSummary);
