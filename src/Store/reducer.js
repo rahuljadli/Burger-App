@@ -43,6 +43,16 @@ const reducer=(state=initialState,action)=>{
             },
             totalCost:state.totalCost-INGREDIENT_PRICE[action.ingredientName]
         }
+        case actionTypes.RESET_INGREDIENT:
+            console.log("Reset Call")
+            return{
+                ingredients:{
+                    cheese:0,
+                   salad:0,
+                    bacon:0,
+                    meat:0 },
+                totalCost:0
+            }
         default:
             return state
     }

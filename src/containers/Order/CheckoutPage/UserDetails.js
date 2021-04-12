@@ -3,6 +3,7 @@ import Button from '../../../components/UI/Button/Button';
 import classes from '../CheckoutPage/UserDetails.module.css';
 import axios from '../../../AxiosInstance';
 import {connect} from 'react-redux';
+import * as actionTypes from '../../../Store/action'
 class UserDetails extends Component{
 
 state={
@@ -12,9 +13,14 @@ state={
         email:'rahul@gmail.com'
    
 }
-    orderHandler(){
 
+resetHandler(){
+    console.log("resetHandler")
+    this.props.resetHandlerCall()
+}
+    orderHandler(event){
 
+        event.preventDefault();
         // Code for retreiving data from form
         const users={
             name:this.state.name,
@@ -39,11 +45,14 @@ state={
         axios.post('orders.json',order).then(
             response=>{
                 console.log("placed")
+                
+
             }
         ).catch(error=>{
             console.log(error);
         })
-
+        this.resetHandler()
+        
         this.props.history.push('/')
     }
     handleName=(event)=>{
@@ -68,7 +77,7 @@ state={
             <div className={classes.UserDetails}>
                 <h4>Enter Your Details</h4>
                 <form
-                onSubmit={()=>this.orderHandler(this)}
+                onSubmit={(event)=>this.orderHandler(event)}
                 
                 style={{textAlign:'center',
                                paddingLeft:'370px' }}>
@@ -93,7 +102,7 @@ state={
                  type="email" 
                  name="email"
                  placeholder="Enter your Email ID" />
-                          <Button
+                          <Button type="submit"
                          
         buttonType="Success" 
             >
@@ -113,4 +122,13 @@ const mapStatesToProps=state=>{
         price:state.totalCost
     }
 }
-export default connect(mapStatesToProps)(UserDetails);
+
+const mapDispatchToProps=dispatch=>{
+    return{
+        resetHandlerCall:()=>         
+        dispatch({
+          type: actionTypes.RESET_INGREDIENT
+        })
+    }
+}
+export default connect(mapStatesToProps,mapDispatchToProps)(UserDetails);
