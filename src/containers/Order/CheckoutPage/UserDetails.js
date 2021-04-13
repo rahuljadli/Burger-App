@@ -3,7 +3,7 @@ import Button from '../../../components/UI/Button/Button';
 import classes from '../CheckoutPage/UserDetails.module.css';
 import axios from '../../../AxiosInstance';
 import {connect} from 'react-redux';
-import * as actionTypes from '../../../Store/action'
+import * as actionTypes from '../../../Store/Action/action'
 class UserDetails extends Component{
 
 state={

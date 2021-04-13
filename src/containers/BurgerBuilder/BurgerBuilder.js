@@ -6,7 +6,8 @@ import Modal from '../../components/UI/Modal.js';
 import Spinner from '../.../../../components/UI/Spinner/Spinner.js';
 import {connect} from 'react-redux';
 
-import * as actionTypes from '../../Store/action';
+import * as actionTypes from '../../Store/Action/action';
+import * as burgerBuilderAction from '../../Store/Action/BurgerBuilder';
 
 
 
@@ -180,15 +181,9 @@ const mapStatesToProps=state=>{
 const mapDispatchToProps = (dispatch) => {
     return {
       onIngredientAdded: (ingName) =>         
-        dispatch({
-          type: actionTypes.ADD_INGREDIENT,
-          ingredientName: ingName,
-        }),
+        dispatch(burgerBuilderAction.addIngredient(ingName)),
       onIngredientRemoved: (ingName) =>
-        dispatch({
-          type: actionTypes.DELETE_INGREDIENT,
-          ingredientName: ingName,
-        }),
+        dispatch(burgerBuilderAction.removeIngredient(ingName)),
     };
   };
 

@@ -4,11 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
-import {createStore} from 'redux';
+import {createStore,compose,applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
-import reducer from './Store/reducer';
+import Burgerreducer from './Store/Reducer/BurgerReducer';
+import thunk from 'redux-thunk';
 
-const store=createStore(reducer)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store=createStore(Burgerreducer,
+  composeEnhancers(applyMiddleware(thunk))
+  )
 
 ReactDOM.render(
   <React.StrictMode>
