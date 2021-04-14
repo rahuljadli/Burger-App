@@ -83,6 +83,9 @@ class BurgerBuilder extends Component{
 
     }
 
+
+
+
     checkCart=(updatedIngredient)=>{
         const ingredients={...updatedIngredient}
         
@@ -126,7 +129,7 @@ class BurgerBuilder extends Component{
 
     }
     render( ){
-        console.log(this.props.ings)
+        
         let spinnerComp=
         <CheckOutSummary 
             ingredients={this.props.ings}
@@ -150,7 +153,7 @@ class BurgerBuilder extends Component{
             
             </Modal>
        
-            
+            {console.log("Ingredient1111",this.props.ings)}
             
             <Burger ingredients={this.props.ings}
                 totalPrice={this.props.price}
@@ -184,6 +187,7 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(burgerBuilderAction.addIngredient(ingName)),
       onIngredientRemoved: (ingName) =>
         dispatch(burgerBuilderAction.removeIngredient(ingName)),
+        onPurhcaseStart:()=> dispatch(burgerBuilderAction.startIngredient())
     };
   };
 

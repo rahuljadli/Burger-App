@@ -17,3 +17,8 @@ export const removeIngredient=(name)=>{
         ingredientName: name
     }
 }
+export const startIngredient=()=>{
+    return{
+        type: actionTypes.BURGER_PURCHASE_START
+    }
+}

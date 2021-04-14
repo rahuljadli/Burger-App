@@ -55,8 +55,24 @@ const reducer=(state=initialState,action)=>{
                     meat:0 },
                 totalCost:0
             }
+            case actionTypes.BURGER_PURCHASE_START:
+            
+            return{
+                ...state,
+                ingredients:{
+                    ...state.ingredients
+                },
+                ...state.totalCost
+
+            }
         default:
-            return state
+            return{
+                ...state,
+                ingredients:{
+                    ...state.ingredients
+                }
+
+            }
     }
 }
 

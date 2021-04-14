@@ -1,8 +1,9 @@
-import Button from '../../UI/Button/Button'
+import Button from '../../UI/Button/Button';
+import {connect} from 'react-redux'
 const CheckOutSummary=(props)=>{
 const ingredients=props.ingredients;
 
-const summaryDetails=Object.keys(ingredients).map(
+const summaryDetails=Object.keys(props.ings).map(
     (ingredientkey)=>{
         return(
             <li key={ingredientkey}>
@@ -23,7 +24,7 @@ const summaryDetails=Object.keys(ingredients).map(
 
     {summaryDetails}
 <br></br>
-<strong>Total {props.totalCost}:</strong>
+<strong>Total {props.price}:</strong>
 <p>Do you want to checkout</p>
 <Button clicked={props.buy} buttonType="Success">Confirm</Button>
 <Button clicked={props.cancel} buttonType="Danger">Cancel</Button>
@@ -32,4 +33,11 @@ const summaryDetails=Object.keys(ingredients).map(
 
     );
 }
-export default CheckOutSummary;
+const mapStateToProps=state=>{
+    return{
+        ings:state.burger.ingredients,
+        price:state.burger.totalCost
+    }
+}
+
+export default connect(mapStateToProps)(CheckOutSummary);

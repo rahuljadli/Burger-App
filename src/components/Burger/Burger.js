@@ -1,10 +1,12 @@
 import Ingredients from './BurgerIngredients/Ingredients.js'
-import classes from './Burger.module.css'
+import classes from './Burger.module.css';
+import {connect} from 'react-redux'
 const Burger=(props)=>{
-    let dynamicIngredient=Object.keys(props.ingredients).map(
+    let dynamicIngredient=Object.keys(props.ings).map(
         (ingredientkey)=>{
-            const amount=props.ingredients[ingredientkey];
+            const amount=props.ings[ingredientkey];
             
+    console.log("AMOUNT",amount)
             return [...Array(amount)].map(
                 (c,index)=>{
                     
@@ -34,4 +36,12 @@ return(
     </div>
 );
 }
-export default Burger;
+
+const mapStateToProps=state=>{
+    return{
+        ings:state.burger.ingredients,
+        price:state.burger.totalCost
+    }
+}
+
+export default connect(mapStateToProps)(Burger);
