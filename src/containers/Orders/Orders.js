@@ -1,49 +1,46 @@
 import { Component } from "react";
 import Order from '../../components/Order/Order';
-import axios from '../../AxiosInstance';
+import { connect } from "react-redux";
+import * as OrderActionCreator from '../../Store/Action/order';
+import Spinner from '../../components/UI/Spinner/Spinner';
 class Orders extends Component{
-    state={
-        orders:[]
-    }
+  
     
     componentDidMount(){
-        axios.get("/orders.json").then(
-
-            response=>{
-                console.log("response")
-                
-                console.log(response)
-                const fetchedOrders=[];
-                for(let key in response.data){
-                       fetchedOrders.push({
-                           ...response.data[key],
-                           id:key
-
-                       }) 
-                }
-                this.setState({
-                    orders: fetchedOrders
-                });
-                console.log(this.state.orders)
-            }
-        ).catch(error=>{
-            console.log(error)
-        });
+        this.props.onFetchOrders();
+        
     }
     render(){
+        let content=<Spinner></Spinner>
+        if(!this.props.loading){
+            content= 
+                this.props.orders.map(order=>{return <Order 
+                    id={order.id}
+                    ingredients={order.ingredients}
+                    price={order.price}
+                />})
+            
+        }
         return(<>
     
             <div>
-                {
-                    this.state.orders.map(order=>{return <Order 
-                        id={order.id}
-                        ingredients={order.ingredients}
-                        price={order.price}
-                    />})
-                }
+               {content}
             </div>
 
         </>);
     }
 }
-export default Orders;
+
+const mapStateToProps=state=>{
+    return{
+        orders:state.order.orders,
+        loading:state.order.loading
+    }
+}
+
+const mapDispatchToProps=dispatch=>{
+    return{
+        onFetchOrders:()=>dispatch(OrderActionCreator.fetchOrder())
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Orders);

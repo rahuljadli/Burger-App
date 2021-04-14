@@ -173,8 +173,8 @@ class BurgerBuilder extends Component{
 
 const mapStatesToProps=state=>{
     return{
-        ings:state.ingredients,
-        price:state.totalCost
+        ings:state.burger.ingredients,
+        price:state.burger.totalCost
     }
 }
 

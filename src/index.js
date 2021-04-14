@@ -4,14 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
-import {createStore,compose,applyMiddleware} from 'redux';
+import {createStore,combineReducers,compose,applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import Burgerreducer from './Store/Reducer/BurgerReducer';
 import thunk from 'redux-thunk';
-
+import OrderReducer from './Store/Reducer/order'
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store=createStore(Burgerreducer,
+const rootReducer=combineReducers({burger:Burgerreducer,order:OrderReducer})
+const store=createStore(rootReducer,
   composeEnhancers(applyMiddleware(thunk))
   )
 
