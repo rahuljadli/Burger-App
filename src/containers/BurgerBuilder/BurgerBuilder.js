@@ -6,7 +6,6 @@ import Modal from '../../components/UI/Modal.js';
 import Spinner from '../.../../../components/UI/Spinner/Spinner.js';
 import {connect} from 'react-redux';
 
-import * as actionTypes from '../../Store/Action/action';
 import * as burgerBuilderAction from '../../Store/Action/BurgerBuilder';
 
 

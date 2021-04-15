@@ -1,5 +1,5 @@
 import * as actionTypes from '../Action/action';
-import axios from '../../AxiosInstance';
+
 let initialState={
     orders:[],
     loading:null

@@ -8,9 +8,16 @@ import {createStore,combineReducers,compose,applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import Burgerreducer from './Store/Reducer/BurgerReducer';
 import thunk from 'redux-thunk';
-import OrderReducer from './Store/Reducer/order'
+import OrderReducer from './Store/Reducer/order';
+import reducer from './Store/Reducer/LoginReducer';
+
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const rootReducer=combineReducers({burger:Burgerreducer,order:OrderReducer})
+const rootReducer=combineReducers(
+  {burger:Burgerreducer,
+  order:OrderReducer,
+  login:reducer
+})
 const store=createStore(rootReducer,
   composeEnhancers(applyMiddleware(thunk))
   )
