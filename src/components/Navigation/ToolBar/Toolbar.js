@@ -14,10 +14,10 @@ const Toolbar=(props)=>{
         
         <Menu clicked={props.clicked }/>
         </div>
-        <SideDrawer></SideDrawer>
+        <SideDrawer ></SideDrawer>
         <Logo></Logo>
         <nav className={classes.desktopOnly}>
-        <NavigationItems>
+        <NavigationItems status={props.status}>
 
         </NavigationItems>
         </nav>
