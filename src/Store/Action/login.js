@@ -21,6 +21,25 @@ export const LoginStart=()=>{
 
     }
 }
+export const LogOut=()=>{
+    return{
+        type:actionTypes.LOGOUT_USER
+    }
+}
+
+// For setting the timeout value and call Logout Dispatcher
+
+export const LoginTimeOut=(expirationTimeOut)=>{
+    return dispatch=>{
+        setTimeout(()=>{
+            dispatch(LogOut())
+        },expirationTimeOut*10)
+    }
+
+}
+
+
+
 export const LoginUser=(email,password,signInOrUp)=>{
     
     return dispatch=>{
@@ -48,10 +67,11 @@ export const LoginUser=(email,password,signInOrUp)=>{
         axios.post(url,userDetail).then(response=>{
             console.log("RESPONSE",response.data)
             dispatch(LoginSuccessful(response.data))
+            dispatch(LoginTimeOut(response.data.expiresIn))
         }
         ).catch(error=>{
             console.log("Error Message",error)
-            dispatch(LoginFail(error))
+            dispatch(LoginFail(error.response.data.error))
 
         })
 

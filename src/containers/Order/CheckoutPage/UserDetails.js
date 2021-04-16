@@ -15,7 +15,6 @@ state={
 }
 
 resetHandler(){
-    console.log("resetHandler")
     this.props.resetHandlerCall()
 }
     orderHandler(event){
@@ -27,9 +26,6 @@ resetHandler(){
             age:this.state.age,
             email:this.state.email
         }
-        console.log("Showing user details")
-
-        console.log("order Placed")
         const ingre=this.props.ings
         const updatedIngredient={
 
@@ -42,11 +38,8 @@ resetHandler(){
             price:this.props.price,
             customer:users
         }
-        axios.post('orders.json',order).then(
+        axios.post('orders.json?auth='+this.props.token,order).then(
             response=>{
-                console.log("placed")
-                
-
             }
         ).catch(error=>{
             console.log(error);
@@ -118,8 +111,9 @@ resetHandler(){
 
 const mapStatesToProps=state=>{
     return{
-        ings:state.ingredients,
-        price:state.totalCost
+        ings:state.burger.ingredients,
+        price:state.burger.totalCost,
+        token:state.login.token
     }
 }
 

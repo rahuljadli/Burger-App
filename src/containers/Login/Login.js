@@ -12,7 +12,8 @@ class Login extends Component{
    password:"",
    signInOrUp:"Log In",
    changeAction:"Sign Up",
-   message:"Login here using your username and password"
+   message:"Login here using your username and password",
+   comment:""
 }
 
 
@@ -54,6 +55,10 @@ changeSignUpOrIn=()=>{
       });
   }
   render(){
+   let errorComment=null
+   if(this.props.error){
+      errorComment=<p><b>{this.props.error}</b></p>
+   }
    let spinner=<Spinner/>
    if(!this.props.spinOrNot)
       spinner=null
@@ -66,13 +71,17 @@ changeSignUpOrIn=()=>{
 {spinner}
 <form className={classes.form} 
  onSubmit={(event)=>this.submitHandler} >
+ 
    {/* <!--   con = Container  for items in the form--> */}
    <div className={classes.con}>
    {/* <!--     Start  header Content  --> */}
    <header className={classes.header}>
+   
       <h2 className={classes.headerh2}>{this.state.signInOrUp}</h2>
       {/* <!--     A welcome message or an explanation of the login form --> */}
       <p>{this.state.message}</p>
+      
+{errorComment}
    </header>
    {/* <!--     End  header Content  --> */}
    <br></br>
@@ -129,7 +138,8 @@ changeSignUpOrIn=()=>{
 
 const mapStateToProps=state=>{
    return{
-      spinOrNot:state.login.loading
+      spinOrNot:state.login.loading,
+      error:state.login.error.message
    }
    
 }
