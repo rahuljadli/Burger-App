@@ -9,6 +9,8 @@ import {connect} from 'react-redux';
 import * as burgerBuilderAction from '../../Store/Action/BurgerBuilder';
 
 
+import * as loginAction from '../../Store/Action/login';
+
 
 class BurgerBuilder extends Component{
     state={
@@ -83,6 +85,7 @@ class BurgerBuilder extends Component{
         });
     }
     else{
+        this.props.onRedirectToPath('/checkout');
         this.props.history.push("/login");
     }
 
@@ -183,7 +186,9 @@ const mapStatesToProps=state=>{
     return{
         ings:state.burger.ingredients,
         price:state.burger.totalCost,
-        isAuthenticated:state.login.token!=null
+        isAuthenticated:state.login.token!=null,
+        buildingBurger:state.burger.building,
+        RedirectPath:state.login.RedirectPath
     }
 }
 
@@ -193,7 +198,8 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(burgerBuilderAction.addIngredient(ingName)),
       onIngredientRemoved: (ingName) =>
         dispatch(burgerBuilderAction.removeIngredient(ingName)),
-        onPurhcaseStart:()=> dispatch(burgerBuilderAction.startIngredient())
+        onPurhcaseStart:()=> dispatch(burgerBuilderAction.startIngredient()),
+        onRedirectToPath:(path)=>dispatch(loginAction.setRedirectPath(path))
     };
   };
 

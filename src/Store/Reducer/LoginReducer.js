@@ -5,7 +5,8 @@ token:null,
 userId:0,
 error:0,
 loading:0,
-logInOrOut:null
+logInOrOut:null,
+RedirectPath:'/'
 
 }
 
@@ -40,6 +41,12 @@ const reducer=(state=initialState,action)=>{
                                 userId:null,
                                 loading:false,
                                 logInOrOut:false
+                                
+                        }
+                        case actionTypes.SET_REDIRECT_PATH:
+                        return{
+                              ...state,
+                              RedirectPath:action.path
                                 
                         }
                 default:

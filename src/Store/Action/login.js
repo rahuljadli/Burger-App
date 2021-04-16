@@ -77,3 +77,10 @@ export const LoginUser=(email,password,signInOrUp)=>{
 
     }
 }
+
+export const setRedirectPath=(path)=>{
+    return {
+        type:actionTypes.SET_REDIRECT_PATH,
+        path:path
+    }
+};

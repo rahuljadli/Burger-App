@@ -8,7 +8,8 @@ const initialState=
    salad:0,
     bacon:0,
     meat:0 },
-totalCost:0
+totalCost:0,
+building:false
 }
 const INGREDIENT_PRICE={
     'cheese':10,
@@ -30,7 +31,8 @@ const reducer=(state=initialState,action)=>{
                 ...state.ingredients,
                 [action.ingredientName]:state.ingredients[action.ingredientName]+1
             },
-            totalCost:state.totalCost+ INGREDIENT_PRICE[action.ingredientName]
+            totalCost:state.totalCost+ INGREDIENT_PRICE[action.ingredientName],
+            building:true
         }
     case actionTypes.DELETE_INGREDIENT:
         return {
@@ -43,7 +45,8 @@ const reducer=(state=initialState,action)=>{
                 // because its value wont be used rather whole will act as a variable name
                 [action.ingredientName]:state.ingredients[action.ingredientName]-1
             },
-            totalCost:state.totalCost-INGREDIENT_PRICE[action.ingredientName]
+            totalCost:state.totalCost-INGREDIENT_PRICE[action.ingredientName],
+            building:true
         }
         case actionTypes.RESET_INGREDIENT:
             console.log("Reset Call")
@@ -53,7 +56,8 @@ const reducer=(state=initialState,action)=>{
                    salad:0,
                     bacon:0,
                     meat:0 },
-                totalCost:0
+                totalCost:0,
+                building:false
             }
             case actionTypes.BURGER_PURCHASE_START:
             

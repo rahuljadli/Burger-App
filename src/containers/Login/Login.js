@@ -16,6 +16,11 @@ class Login extends Component{
    message:"Login here using your username and password",
    comment:""
 }
+componentDidMount(){
+   if(!this.props.buildingBurger && this.props.RedirectPath!=='/'){
+      this.props.setRedirectPath();
+   }
+}
 
 
 submitHandler=(event)=>{
@@ -68,7 +73,7 @@ changeSignUpOrIn=()=>{
 
    let successfullRedirect=null;
    if(this.props.isAuthenticated)
-   successfullRedirect=<Redirect to="/"/>
+   successfullRedirect=<Redirect to={this.props.RedirectPath}/>
 
    
       return(
@@ -149,7 +154,10 @@ const mapStateToProps=state=>{
    return{
       spinOrNot:state.login.loading,
       error:state.login.error.message,
-      isAuthenticated:state.login.token!=null
+      isAuthenticated:state.login.token!=null,
+      buildingBurger:state.burger.building,
+      RedirectPath:state.login.RedirectPath
+
    }
    
 }
@@ -157,7 +165,8 @@ const mapStateToProps=state=>{
 const mapDispatchToProps=dispatch=>{
    return{
       onSubmitHandler:
-      (email,password,signInOrUp)=>dispatch(loginActionCreator.LoginUser(email,password,signInOrUp))
+      (email,password,signInOrUp)=>dispatch(loginActionCreator.LoginUser(email,password,signInOrUp)),
+      onRedirectToPath:()=>dispatch(loginActionCreator.setRedirectPath("/"))
    }
    
 }
