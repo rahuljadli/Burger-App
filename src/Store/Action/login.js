@@ -1,11 +1,11 @@
 import * as actionTypes from './action';
 import axios from 'axios';
-export const LoginSuccessful=(data)=>{
+export const LoginSuccessful=(idToken,localId)=>{
    
     return{
         type:actionTypes.LOGIN_SUCCESSFULL,
-        token:data.idToken,
-        userId:data.localId
+        token:idToken,
+        userId:localId
     }
 }
 export const LoginFail=(error)=>{
@@ -22,6 +22,9 @@ export const LoginStart=()=>{
     }
 }
 export const LogOut=()=>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('userId')
+    localStorage.removeItem('expiresIn')
     return{
         type:actionTypes.LOGOUT_USER
     }
@@ -30,6 +33,8 @@ export const LogOut=()=>{
 // For setting the timeout value and call Logout Dispatcher
 
 export const LoginTimeOut=(expirationTimeOut)=>{
+  
+    
     return dispatch=>{
         setTimeout(()=>{
             dispatch(LogOut())
@@ -66,7 +71,16 @@ export const LoginUser=(email,password,signInOrUp)=>{
        console.log("About to call axios and URL",url)
         axios.post(url,userDetail).then(response=>{
             console.log("RESPONSE",response.data)
-            dispatch(LoginSuccessful(response.data))
+
+            // Converting the Expiray Date
+
+            const expiresInDate=new Date(new Date().getTime() + response.data.expiresIn*1000);
+
+            localStorage.setItem('expiresIn',expiresInDate)
+            localStorage.setItem('token',response.data.idToken)
+            localStorage.setItem('userId',response.data.localId)
+
+            dispatch(LoginSuccessful(response.data.idToken,response.data.localId))
             dispatch(LoginTimeOut(response.data.expiresIn))
         }
         ).catch(error=>{
@@ -84,3 +98,24 @@ export const setRedirectPath=(path)=>{
         path:path
     }
 };
+export const logInCheck=()=>{
+    return dispatch=>{
+        const token=localStorage.getItem('token')
+        const userId=localStorage.getItem('userId')
+        console.log("InsideCheck")
+        if(!token){
+            dispatch(LogOut())
+        }
+        else{
+            const expirayDate=new Date(localStorage.getItem('expiresIn'));
+            if(expirayDate>new Date())
+            {dispatch(LoginSuccessful(token,userId))
+            dispatch( LoginTimeOut( expirayDate.getTime() - new Date().getTime() ) );
+           }
+            else{
+                dispatch(LogOut())
+            }
+
+        }
+    }
+}
