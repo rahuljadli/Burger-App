@@ -38,7 +38,7 @@ export const LoginTimeOut=(expirationTimeOut)=>{
     return dispatch=>{
         setTimeout(()=>{
             dispatch(LogOut())
-        },expirationTimeOut*10)
+        },expirationTimeOut*1000)
     }
 
 }
@@ -56,21 +56,17 @@ export const LoginUser=(email,password,signInOrUp)=>{
             returnSecureToken:true
         };
 
-        console.log(userDetail)
         let url=""
         if(signInOrUp==='Sign Up')
         {
-            console.log("Hiii inside Singup")
             url=`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCd9Kln8XcHgRH_pxhPGn-U7EOwT21HTTA`
         }
         else
         {
-            console.log("Hiii inside SignIn")
             url=`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCd9Kln8XcHgRH_pxhPGn-U7EOwT21HTTA`
        }
-       console.log("About to call axios and URL",url)
         axios.post(url,userDetail).then(response=>{
-            console.log("RESPONSE",response.data)
+           
 
             // Converting the Expiray Date
 
@@ -102,7 +98,7 @@ export const logInCheck=()=>{
     return dispatch=>{
         const token=localStorage.getItem('token')
         const userId=localStorage.getItem('userId')
-        console.log("InsideCheck")
+      
         if(!token){
             dispatch(LogOut())
         }
@@ -110,7 +106,7 @@ export const logInCheck=()=>{
             const expirayDate=new Date(localStorage.getItem('expiresIn'));
             if(expirayDate>new Date())
             {dispatch(LoginSuccessful(token,userId))
-            dispatch( LoginTimeOut( expirayDate.getTime() - new Date().getTime() ) );
+            dispatch( LoginTimeOut( (expirayDate.getTime() - new Date().getTime())*1000 ) );
            }
             else{
                 dispatch(LogOut())

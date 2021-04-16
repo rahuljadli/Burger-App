@@ -36,7 +36,8 @@ resetHandler(){
         const order={
             ingredients:updatedIngredient,
             price:this.props.price,
-            customer:users
+            customer:users,
+            userId:this.props.userId
         }
         axios.post('orders.json?auth='+this.props.token,order).then(
             response=>{
@@ -68,12 +69,11 @@ resetHandler(){
     render(){
         return(
             <div className={classes.UserDetails}>
-                <h4>Enter Your Details</h4>
                 <form
-                onSubmit={(event)=>this.orderHandler(event)}
                 
                 style={{textAlign:'center',
                                paddingLeft:'370px' }}>
+                               <br></br>
                 <input required 
                 value={this.state.name} 
                 onChange={this.handleName.bind(this)}
@@ -95,15 +95,15 @@ resetHandler(){
                  type="email" 
                  name="email"
                  placeholder="Enter your Email ID" />
-                          <Button type="submit"
-                         
-        buttonType="Success" 
-            >
-            Confirm
-        </Button>
+                       
                     </form>
-          
-                
+                    <Button className={classes.buttonCss}
+                         
+                         clicked={(event)=>this.orderHandler(event)}
+                         buttonType="Success" 
+                             >
+                             Confirm
+                         </Button>
             </div>
                     )
     }
@@ -113,7 +113,8 @@ const mapStatesToProps=state=>{
     return{
         ings:state.burger.ingredients,
         price:state.burger.totalCost,
-        token:state.login.token
+        token:state.login.token,
+        userId:state.login.userId
     }
 }
 

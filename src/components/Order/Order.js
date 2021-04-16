@@ -5,7 +5,7 @@ const Order=(props)=>{
        ingredientDetail+=key+"("+props.ingredients[key]+") "
     
     }
-    console.log(ingredientDetail)
+    
     return(<div className={classes.Order}>
         <p style={{textTransform:'capitalize'}}>Ingredients: <strong>{ingredientDetail}</strong> </p>
         <p>

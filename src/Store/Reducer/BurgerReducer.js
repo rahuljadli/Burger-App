@@ -49,7 +49,7 @@ const reducer=(state=initialState,action)=>{
             building:true
         }
         case actionTypes.RESET_INGREDIENT:
-            console.log("Reset Call")
+            
             return{
                 ingredients:{
                     cheese:0,

@@ -6,7 +6,6 @@ const Burger=(props)=>{
         (ingredientkey)=>{
             const amount=props.ings[ingredientkey];
             
-    console.log("AMOUNT",amount)
             return [...Array(amount)].map(
                 (c,index)=>{
                     

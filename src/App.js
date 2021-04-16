@@ -4,7 +4,7 @@ import Layout from './containers/Layout/Layout'
 import classes from './containers/Layout/Layout.module.css'
 import CheckOut from './containers/Order/CheckOut';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder'
-import {Route,Switch,Redirect} from 'react-router-dom';
+import {Route,Redirect} from 'react-router-dom';
 import Orders from './containers/Orders/Orders';
 import Login from './containers/Login/Login';
 import LogOut from './containers/LogOut/Logout';
@@ -15,7 +15,6 @@ import {useEffect} from 'react'
 function App(props) {
 
   useEffect(() => {
-    console.log("Did Mount")
     props.onLoadingCheckLogin();
   });
 

@@ -1,7 +1,7 @@
 
 import classes from './Toppings.module.css';
 const Toppings=(props)=>{
-    console.log(props)
+  
 return(
     <div className={classes.Toppings}>
     <div className={classes.Label}>{props.label}</div>

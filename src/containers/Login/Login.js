@@ -156,7 +156,8 @@ const mapStateToProps=state=>{
       error:state.login.error.message,
       isAuthenticated:state.login.token!=null,
       buildingBurger:state.burger.building,
-      RedirectPath:state.login.RedirectPath
+      RedirectPath:state.login.RedirectPath,
+      tokenId:state.login.token
 
    }
    
