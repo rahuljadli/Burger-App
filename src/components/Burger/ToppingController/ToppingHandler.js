@@ -21,7 +21,7 @@ return(
     <button className={classes.OrderButton}
     disabled={!(props.purchasable)}
     onClick={props.checkOutClick}
-    >Order Now</button>
+    >{props.isAuth? "Order Now":"LogIn To Order" }</button>
     </div>
 )
 }

@@ -7,6 +7,7 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder'
 import {Route,Switch} from 'react-router-dom';
 import Orders from './containers/Orders/Orders';
 import Login from './containers/Login/Login';
+import LogOut from './containers/LogOut/Logout';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/login" component={Login}/>
       <Route path="/" exact component={BurgerBuilder}/>
       <Route path="/orders" component={Orders}/>
+      <Route path="/logout" component={LogOut}/>
     </Switch>
  
 

@@ -1,10 +1,11 @@
 import * as actionTypes from '../Action/action';
 const initialState=
 {
-token:0,
+token:null,
 userId:0,
 error:0,
-loading:0
+loading:0,
+logInOrOut:null
 
 }
 
@@ -15,7 +16,6 @@ const reducer=(state=initialState,action)=>{
         case actionTypes.LOGIN_START:
             return{
                 ...state,
-                token:"Start",
                 loading:true
                     }
             case actionTypes.LOGIN_SUCCESSFULL:
@@ -23,18 +23,23 @@ const reducer=(state=initialState,action)=>{
                     ...state,
                     token:action.token,
                         userId:action.userId,
-                        loading:false
+                        loading:false,
+                        logInOrOut:true
                 }
                 case actionTypes.LOGIN_FAIL:
                     return{
                         ...state,
                             loading:false,
-                            error:action.error
+                            error:action.error       ,
+                        logInOrOut:false
                     }
                     case actionTypes.LOGOUT_USER:
                         return{
-                            ...state,
+                              ...state,
+                                token:null,
+                                userId:null,
                                 loading:false,
+                                logInOrOut:false
                                 
                         }
                 default:

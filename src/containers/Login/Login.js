@@ -3,6 +3,7 @@ import classes from './Login.module.css';
 import {connect} from 'react-redux';
 import * as loginActionCreator from '../../Store/Action/login';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import {Redirect} from 'react-router-dom';
 
 class Login extends Component{
 
@@ -62,11 +63,19 @@ changeSignUpOrIn=()=>{
    let spinner=<Spinner/>
    if(!this.props.spinOrNot)
       spinner=null
+
+   // For Redirecting to Home Page after LogIn
+
+   let successfullRedirect=null;
+   if(this.props.isAuthenticated)
+   successfullRedirect=<Redirect to="/"/>
+
+   
       return(
          <>
       <div className={classes.body1}>
       
-      
+      {successfullRedirect}
 <div className={classes.overlay}>
 {spinner}
 <form className={classes.form} 
@@ -139,7 +148,8 @@ changeSignUpOrIn=()=>{
 const mapStateToProps=state=>{
    return{
       spinOrNot:state.login.loading,
-      error:state.login.error.message
+      error:state.login.error.message,
+      isAuthenticated:state.login.token!=null
    }
    
 }

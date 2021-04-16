@@ -76,9 +76,15 @@ class BurgerBuilder extends Component{
     //     this.checkCart(updatedIngredient);
     // }
      checkOutOrNot=()=>{
-        this.setState({
+
+        if(this.props.isAuthenticated)
+        {this.setState({
             checkOutOrNot:true
         });
+    }
+    else{
+        this.props.history.push("/login");
+    }
 
     }
 
@@ -152,7 +158,6 @@ class BurgerBuilder extends Component{
             
             </Modal>
        
-            {console.log("Ingredient1111",this.props.ings)}
             
             <Burger ingredients={this.props.ings}
                 totalPrice={this.props.price}
@@ -164,6 +169,7 @@ class BurgerBuilder extends Component{
             ingredients={this.props.ings}
             purchasable={this.checkCart(this.props.ings)}
             checkOutClick={this.checkOutOrNot}
+            isAuth={this.props.isAuthenticated}
             />
             
             </>
@@ -176,7 +182,8 @@ class BurgerBuilder extends Component{
 const mapStatesToProps=state=>{
     return{
         ings:state.burger.ingredients,
-        price:state.burger.totalCost
+        price:state.burger.totalCost,
+        isAuthenticated:state.login.token!=null
     }
 }
 
