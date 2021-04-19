@@ -31,7 +31,7 @@ return(
         <Ingredients type="bread-top"></Ingredients>
         {dynamicIngredient}
         <Ingredients type="bread-bottom" />
-        <p>Current Price: {props.totalPrice}</p>
+        <p>Current Price: {props.price}</p>
     </div>
 );
 }
