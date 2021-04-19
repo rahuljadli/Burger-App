@@ -1,6 +1,11 @@
-# The App is deployed on [Burger App](https://burger-app-51b39.firebaseapp.com/)
+# Burger App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## The App is deployed on [Burger App](https://burger-app-51b39.firebaseapp.com/)
+
+### Demo Email Id: test@test.com
+
+### Demo Password: test12345
+
 
 ## Available Scripts
 
